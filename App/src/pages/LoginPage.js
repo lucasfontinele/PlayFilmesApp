@@ -8,6 +8,7 @@ import {
     TouchableOpacity 
 } from 'react-native';
 import FormRow from '../components/FormRow';
+import axios from 'axios';
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -31,9 +32,12 @@ export default class LoginPage extends React.Component {
         });
     }
 
-    tryLogin() {
-        console.log(this.state);
-
+    tryLogin() {        
+        axios
+        .get("http://localhost:8080/")
+        .then((data) => {
+            console.log(data);
+        });
     }
 
     render() {
@@ -45,8 +49,11 @@ export default class LoginPage extends React.Component {
                 <FormRow>
                     <TextInput style={Style.Input} placeholder='Senha' secureTextEntry onChangeText={value => this.onChangeHandler('pass', value)}/>                                
                 </FormRow>
-                <TouchableOpacity style={Style.Button} onPress={() => this.tryLogin()}>
+                <TouchableOpacity style={Style.AccButton} onPress={() => this.tryLogin()}>
                     <Text style={Style.ButtonTitle}>Acessar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={Style.RegButton} onPress={() => this.tryLogin()}>
+                    <Text style={Style.ButtonTitle}>Registrar-se</Text>
                 </TouchableOpacity>
                 {/* <Button title="Entrar" onPress={() => this.tryLogin()}/> */}
             </View>    
@@ -64,6 +71,7 @@ const Style = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 10,
+        borderRadius: 5,
         borderColor: '#C5C5C5'
     },
 
@@ -73,13 +81,24 @@ const Style = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    Button: {
-        borderBottomColor: 'white',
-        backgroundColor: 'green',
+    AccButton: {
+        borderColor: '#23a127',
+        borderWidth: 2,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 3,
-        backgroundColor: '#70BD85',
+        backgroundColor: '#28b62c',
+        margin: 15,
+        height: 40
+    },
+    
+    RegButton: {
+        borderColor: '#00abff',
+        backgroundColor: '#4cc4ff',
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 3,
         margin: 15,
         height: 40
     }
