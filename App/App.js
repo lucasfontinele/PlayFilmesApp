@@ -7,7 +7,7 @@ export default createStackNavigator({
     }
 }, {
   navigationOptions: {
-      title: 'Séries',
+      title: 'Autenticação',
       headerTintColor: 'white',
       headerTitleStyle: {
         color: 'white',

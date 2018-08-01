@@ -13,9 +13,8 @@ const FormRow = (props) => {
 const Style = StyleSheet.create({
     container: {
         padding: 10,
+        margin: 5,
         backgroundColor: 'white',
-        marginTop: 5,
-        marginBottom: 5,
         elevation: 1
     }
 });
