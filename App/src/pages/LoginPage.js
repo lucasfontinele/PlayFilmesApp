@@ -33,11 +33,12 @@ export default class LoginPage extends React.Component {
     }
 
     tryLogin() {        
+        //Realizar consulta via post
         axios
-        .get("http://localhost:8080/")
-        .then((data) => {
-            console.log(data);
-        });
+        .get("http://192.168.0.10:8080/verifyusers/"+this.state.email+"/"+this.state.pass)
+        .then(res => {
+            console.log(res.data);
+        });        
     }
 
     render() {
