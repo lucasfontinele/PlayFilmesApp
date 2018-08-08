@@ -1,3 +1,3 @@
+//Importação dos módulos criados (ROTAS)
 require('colors');
-
-require("./src/routes/main").Routes();
+require("./src/routes/main");

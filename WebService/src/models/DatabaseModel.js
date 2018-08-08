@@ -26,7 +26,7 @@ function DatabaseConnect() {
                 }, 3000);    
             }
             else {
-                console.log("[+] Conectado [MySQL]".green)
+                console.log("[+] Conectado [MySQL]".green);
             }   
         }        
         catch(err) {

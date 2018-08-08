@@ -35,7 +35,7 @@ export default class LoginPage extends React.Component {
     tryLogin() {        
         //Realizar consulta via post
         axios
-        .get("http://192.168.0.10:8080/verifyusers/"+this.state.email+"/"+this.state.pass)
+        .get("http://webservice.hiddo.com.br/verifyusers/"+this.state.email+"/"+this.state.pass)
         .then(res => {
             console.log(res.data);
         });        
