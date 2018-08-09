@@ -17,11 +17,9 @@ var Local = exports.Local = Mysql.createConnection({
 function DatabaseConnect() {
     Local.connect(error => {
         try {
-            if (error) {
-                console.log("[-] Erro ao conectar-se com o banco de dados, tentando se reconectar! [MySQL Local]".red);
-                console.log(error.message);
-                setInterval(function(){
-                    console.log("[i] Tentando reestabelecer a conexão. [MYSQL Local]".blue);    
+            if (error) {                            
+                setTimeout(function(){
+                    console.log("[i] Tentando reestabelecer a conexão. [MYSQL Local]".red);    
                     DatabaseConnect();         
                 }, 3000);    
             }
@@ -44,7 +42,7 @@ process.on('uncaughtException', errp => {
     if (errp == "PROTOCOL_CONNECTION_LOST") {
         if(con.state != "authenticated") {
             console.log("[x] A conexão com o banco de dados foi perdida! [MySQL]".red);
-            con.end();
+            Local.end();            
         }                
     }
 });
