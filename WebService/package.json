@@ -21,23 +21,7 @@
       "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-4.1.0.tgz",
       "version": "4.1.0"
     },
-    "body-parser": {
-      "integrity": "sha1-h2eKGdhLR9hZuDGZvVm84iKxBFQ=",
-      "requires": {
-        "bytes": "3.0.0",
-        "content-type": "1.0.4",
-        "debug": "2.6.9",
-        "depd": "1.1.2",
-        "http-errors": "1.6.3",
-        "iconv-lite": "0.4.19",
-        "on-finished": "2.3.0",
-        "qs": "6.5.1",
-        "raw-body": "2.3.2",
-        "type-is": "1.6.16"
-      },
-      "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-1.18.2.tgz",
-      "version": "1.18.2"
-    },
+    "body-parser": "^1.18.3",
     "bytes": {
       "integrity": "sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=",
       "resolved": "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz",

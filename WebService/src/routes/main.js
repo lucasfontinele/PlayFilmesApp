@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 const port = 8080;
+const body = require('body-parser');
+
 require('colors');
 
 app.listen(port);
@@ -17,6 +19,8 @@ const Routes = () => {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         next();
     });
+
+    app.use(body.json());
 
     app.get('/', (req, res) => {
         res.redirect('/index');

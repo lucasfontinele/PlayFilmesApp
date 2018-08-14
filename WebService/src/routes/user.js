@@ -12,8 +12,17 @@ router.get('/:name/:pass', (req, res) => {
         Login(username, password, status => {
             res.send(JSON.stringify({ status }));
         });
-    } else {
-        res.send(JSON.stringify({ error: "parâmetros inválidos" }));
+    }
+});
+
+router.post('/auth', (req, res) => {
+    var username = req.body.name;
+    var password = req.body.pass;
+
+    if (username != "" || password != "") {
+        Login(username, password, status => {
+            res.send(JSON.stringify({ status }));
+        });
     }
 });
 
