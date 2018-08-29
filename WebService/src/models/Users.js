@@ -1,9 +1,10 @@
-const Database = require('../models/DatabaseModel').Local;
+const db = require('../models/DatabaseModel').Local;
 
-function GetUserByName(Name) {
-    Database.query(`SELECT * FROM users WHERE username = ${Name};`, (err, res) => {
+GetUserByName = (Name) => {    
+    db.query(`SELECT * FROM users WHERE username = ${Name};`, (err, res, fields, callback) => {
         if (!err) {
-            return res;
+            console.log(res);
+            return JSON.stringify( { res } );            
         }
-    });
+    });    
 }

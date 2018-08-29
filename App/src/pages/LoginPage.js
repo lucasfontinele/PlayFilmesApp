@@ -1,12 +1,5 @@
 import React from 'react';
-import { 
-    Text, 
-    TextInput, 
-    View,
-    StyleSheet, 
-    Button,
-    TouchableOpacity 
-} from 'react-native';
+import { Text, TextInput, View,StyleSheet, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
 import FormRow from '../components/FormRow';
 import axios from 'axios';
 
@@ -16,56 +9,102 @@ export default class LoginPage extends React.Component {
 
         this.state = {
             email: "",
-            pass: ""
+            pass: "",
+            isVisible: true,
         }
     }
 
-    onChangeHandler(field, value) {
-        //Ecma Script 5
-        // const newState = '';
-        // newState[field] = value;
-        // this.setState(newState);
+    componentWillMount() {
+        setTimeout(() => {
+            this.setState({
+                isVisible: false
+            });
+        }, 1000);        
+    }
 
-        //Ecma Script 6 
+    onChangeHandler(field, value) {
         this.setState({
             [field]: value
         });
     }
 
-    tryLogin() {        
-        //Realizar consulta via post
+    tryLogin() {                
+        let postData = {
+            user: this.state.email,
+            pass: this.state.pass                       
+        }    
+
         axios
-        .get("http://webservice.hiddo.com.br/verifyusers/"+this.state.email+"/"+this.state.pass)
-        .then(res => {
-            console.log(res.data);
-        });        
+        .get(`http://webservice.hiddo.com.br/users/${postData.user}/${postData.pass}`)
+        .then((res) => {
+            const {ok} = res.data.status;
+
+            if (ok) {
+                this.props.navigation.navigate('MainPage');
+            }
+        })       
     }
 
     render() {
-        return(
-            <View style={Style.BoxContainer}>
-                <FormRow>
-                    <TextInput style={Style.Input} placeholder='Email' onChangeText={value => this.onChangeHandler('email', value)}/>                                
-                </FormRow>
-                <FormRow>
-                    <TextInput style={Style.Input} placeholder='Senha' secureTextEntry onChangeText={value => this.onChangeHandler('pass', value)}/>                                
-                </FormRow>
-                <TouchableOpacity style={Style.AccButton} onPress={() => this.tryLogin()}>
-                    <Text style={Style.ButtonTitle}>Acessar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={Style.RegButton} onPress={() => this.tryLogin()}>
-                    <Text style={Style.ButtonTitle}>Registrar-se</Text>
-                </TouchableOpacity>
-                {/* <Button title="Entrar" onPress={() => this.tryLogin()}/> */}
-            </View>    
+        if (this.state.isVisible) {
+            return(            
+                <View style={Style.spinner}>
+                    <ActivityIndicator size="large"/>
+                </View>
+            );
+        }
+        else {
+            return(
+                <View style={Style.Application}>
+                    <View style={Style.BoxContainer}>
+                        <FormRow>
+                            <TextInput style={Style.Input} placeholder='Email' onChangeText={value => this.onChangeHandler('email', value)}/>                                
+                        </FormRow>
+                        <FormRow>
+                            <TextInput style={Style.Input} placeholder='Senha' secureTextEntry onChangeText={value => this.onChangeHandler('pass', value)}/>                                
+                        </FormRow>
+                        <View style={Style.button}>
+                            <Button title="Acessar" onPress={() => {                                
+                                this.tryLogin()
+                            }}/>
+                        </View>                  
+                    </View>
+                </View>                 
+            );            
+        }
+        return (
+            <View>
+                <Text>Normal</Text>
+            </View>
         );
     }
 }
 
 const Style = StyleSheet.create({
+    spinner: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    button: {
+        padding: 20
+    },
+
+    Application: {
+        backgroundColor: "#FFF",
+        flex: 1,
+        position: "absolute", 
+        top: 0, 
+        bottom: 0, 
+        left: 0, 
+        right: 0
+    },
+
     BoxContainer: {
-        padding: 20,
+        padding: 30,
         backgroundColor: '#FFF',
+        marginTop: 70
     },
 
     Input: {
