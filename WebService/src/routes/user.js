@@ -1,14 +1,8 @@
 'use strict';
 require('colors');
 const express = require('express');
-const getUser = require('../models/Users');
 var router = express.Router();
 var db = require('../models/DatabaseModel').Local;
-
-router.get('/getUserByName/:user', (req, res) => {
-    console.log(req.params.user);
-    getUser.GetUserByName("OldFl4sh");
-});
 
 router.post('/auth', (req, res) => {
     var username = req.body.name;
@@ -53,19 +47,38 @@ var Login = (Username, Password, callback) => {
         pass: Password
     };
 
-    db.query(`SELECT * FROM users WHERE username = '${postData.user}' AND password = '${postData.pass}'`, (err, res) => {
+    db.query(`SELECT password FROM users WHERE username = '${postData.user}'`, (err, res) => {                
         if (!err) {
-            if (res.length > 0) {
-                callback({ code: 200, ok: true });
-            }                
+            let password = res[0].password;
+
+            if (res.length > 0) {                                
+                if (password == postData.pass) {
+                    callback({ ok: true, token: "x"});
+                } else {
+                    callback({ ok: false });
+                }                
+            }
             else {
-                callback({ code: 200, ok: false });
-            }                
+                callback({ code: 200, ok: false, message: "user not found" });
+            }
         }
         else {
-            console.log("[x] Erro ao autenticar usuário =>\n" + err.message);
+            callback({ code: 200, ok: false, message: "user not found" });
         }
     });
+    // db.query(`SELECT password FROM users WHERE username = '${postData.user}' AND password = '${postData.pass}'`, (err, res) => {
+    //     if (!err) {
+    //         if (res.length > 0) {
+    //             callback({ code: 200, ok: true });
+    //         }                
+    //         else {
+    //             callback({ code: 200, ok: false });
+    //         }                
+    //     }
+    //     else {
+    //         console.log("[x] Erro ao autenticar usuário =>\n" + err.message);
+    //     }
+    // });
 }
 
 module.exports = router;

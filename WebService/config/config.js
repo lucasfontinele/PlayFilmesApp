@@ -1,7 +1,8 @@
 module.exports.config = {
-    host: "localhost",
+    host: "191.232.51.208",
     user: "root",
-    pass: "",
+    pass: "3z5rEXg3BhwG",
     port: 3306,
-    data: "webservice"
+    data: "webservice",
+    webservice: 8080
 }
